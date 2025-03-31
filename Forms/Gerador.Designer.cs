@@ -76,7 +76,8 @@ partial class Gerador
         Controls.Add(btnImportar);
         Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "Gerador";
-        Text = "Gerador";
+        Text = "Gerador De Períodos Aquisitivos";
+        Load += this.CarregaFormulario;
         ResumeLayout(false);
         PerformLayout();
     }

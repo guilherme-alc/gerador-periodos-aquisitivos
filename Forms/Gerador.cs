@@ -1,3 +1,6 @@
+using GeradorPeriodosAquisitivos.Models;
+using GeradorPeriodosAquisitivos.Services;
+
 namespace GeradorPeriodosAquisitivos;
 
 public partial class Gerador : Form
@@ -5,6 +8,11 @@ public partial class Gerador : Form
     public Gerador()
     {
         InitializeComponent();
+    }
+
+    private void CarregaFormulario(object sender, EventArgs e)
+    {
+        txtCaminhoArquivo.Enabled = false;
     }
 
     private void ImportarArquivo(object sender, EventArgs e)
@@ -19,7 +27,7 @@ public partial class Gerador : Form
 
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
-
+            txtCaminhoArquivo.Text = openFileDialog.FileName;
         }
     }
 }
