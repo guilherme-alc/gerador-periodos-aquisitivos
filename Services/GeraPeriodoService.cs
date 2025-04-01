@@ -20,8 +20,6 @@ namespace GeradorPeriodosAquisitivos.Services
 
                     var novoPeriodo = new PeriodoAquisitivo
                     {
-                        CodEmpresa = funcionario.CodEmpresa,
-                        CpfFuncionario = funcionario.CpfFuncionario,
                         DataInicioPeriodo = dataBase,
                         DataFimPeriodo = dataFim
                     };
