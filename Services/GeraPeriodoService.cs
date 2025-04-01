@@ -26,7 +26,10 @@ namespace GeradorPeriodosAquisitivos.Services
                         DataFimPeriodo = dataFim
                     };
                     periodos.Add(novoPeriodo);
-                    dataBase = dataFim.AddDays(1);
+                    if (dataFim < DateTime.Now)
+                        dataBase = dataFim.AddDays(1);
+                    else
+                        geraPeriodo = false;
                 }
                 else
                 {
