@@ -33,7 +33,8 @@ public partial class Gerador : Form
 
             foreach(var funcionario in funcionarios)
             {
-                var periodo = GeraPeriodoService.CalculaPeriodo(funcionario);
+                var periodos = GeraPeriodoService.CalculaPeriodo(funcionario);
+                funcionario.PeriodosAquisitivos = periodos;
             }
         }
     }
