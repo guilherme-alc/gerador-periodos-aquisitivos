@@ -20,7 +20,7 @@ public partial class Gerador : Form
         OpenFileDialog openFileDialog = new OpenFileDialog
         {
             Title = "Selecione o arquivo Excel",
-            Filter = "Arquivo .xlsx|*.xlsx",
+            Filter = "Arquivo Excel (*.xlsx)|*.xlsx|Arquivos Excel 97-2003 (*.xls)|*.xls",
             Multiselect = false,
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         };
