@@ -27,7 +27,14 @@ public partial class Gerador : Form
 
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
-            txtCaminhoArquivo.Text = openFileDialog.FileName;
+            var caminhoArquivo = openFileDialog.FileName;
+            txtCaminhoArquivo.Text = caminhoArquivo;
+            List<Funcionario> funcionarios = LerArquivoService.SerializaPeriodos(caminhoArquivo);
+
+            foreach(var funcionario in funcionarios)
+            {
+                var periodo = GeraPeriodoService.CalculaPeriodo(funcionario);
+            }
         }
     }
 }
