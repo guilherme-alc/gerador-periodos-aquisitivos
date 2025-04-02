@@ -2,9 +2,9 @@
 
 namespace GeradorPeriodosAquisitivos.Services
 {
-    public static class GeraPeriodoService
+    public static class GerarPeriodoService
     {
-        public static List<PeriodoAquisitivo> CalculaPeriodo(Funcionario funcionario)
+        public static List<PeriodoAquisitivo> CalcularPeriodo(Funcionario funcionario)
         {
             var periodos = new List<PeriodoAquisitivo>();
             var dataBase = funcionario.DataAdmissao;

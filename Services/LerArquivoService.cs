@@ -5,25 +5,25 @@ namespace GeradorPeriodosAquisitivos.Services
 {
     public class LerArquivoService
     {
-        public static List<Funcionario> DesserializaLinhas(string caminhoArquivo)
+        public static List<Funcionario> DesserializarLinhas(string caminhoArquivo)
         {
-            ExcelPackage.License.SetNonCommercialPersonal("Guilherme Campos");
+            ExcelPackage.License.SetNonCommercialPersonal("teste");
 
             List<Funcionario> funcionarios = new List<Funcionario>();
 
-            FileInfo fileInfo = new FileInfo(caminhoArquivo);
-            using (var package = new ExcelPackage(fileInfo))
+            FileInfo arquivo = new FileInfo(caminhoArquivo);
+            using (var package = new ExcelPackage(arquivo))
             {
-                var primeiraAba = package.Workbook.Worksheets[0];
+                var planilha = package.Workbook.Worksheets[0];
 
-                int totalLinhas = primeiraAba.Dimension.Rows;
+                int totalLinhas = planilha.Dimension.Rows;
                 for (int linha = 3; linha <= totalLinhas; linha++)
                 {
-                    Funcionario funcionario = new Funcionario
+                    var funcionario = new Funcionario
                     {
-                        CodEmpresa = primeiraAba.Cells[linha, 1].Text,
-                        CpfFuncionario = primeiraAba.Cells[linha, 2].Text,
-                        DataAdmissao = DateTime.Parse(primeiraAba.Cells[linha, 3].Text)
+                        CodEmpresa = planilha.Cells[linha, 1].Text,
+                        CpfFuncionario = planilha.Cells[linha, 2].Text,
+                        DataAdmissao = DateTime.Parse(planilha.Cells[linha, 3].Text)
                     };
 
                     funcionarios.Add(funcionario);

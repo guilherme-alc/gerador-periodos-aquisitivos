@@ -17,25 +17,36 @@ public partial class Gerador : Form
 
     private void ImportarArquivo(object sender, EventArgs e)
     {
-        OpenFileDialog openFileDialog = new OpenFileDialog
+        try
         {
-            Title = "Selecione o arquivo Excel",
-            Filter = "Arquivo Excel (*.xlsx)|*.xlsx|Arquivos Excel 97-2003 (*.xls)|*.xls",
-            Multiselect = false,
-            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-        };
-
-        if (openFileDialog.ShowDialog() == DialogResult.OK)
-        {
-            var caminhoArquivo = openFileDialog.FileName;
-            txtCaminhoArquivo.Text = caminhoArquivo;
-            List<Funcionario> funcionarios = LerArquivoService.SerializaPeriodos(caminhoArquivo);
-
-            foreach(var funcionario in funcionarios)
+            OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                var periodos = GeraPeriodoService.CalculaPeriodo(funcionario);
-                funcionario.PeriodosAquisitivos = periodos;
+                Title = "Selecione o arquivo Excel",
+                Filter = "Arquivo Excel (*.xlsx)|*.xlsx|Arquivos Excel 97-2003 (*.xls)|*.xls",
+                Multiselect = false,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var caminhoArquivo = openFileDialog.FileName;
+                txtCaminhoArquivo.Text = caminhoArquivo;
+                List<Funcionario> funcionarios = LerArquivoService.DesserializarLinhas(caminhoArquivo);
+
+                foreach (var funcionario in funcionarios)
+                {
+                    var periodos = GerarPeriodoService.CalcularPeriodo(funcionario);
+                    funcionario.PeriodosAquisitivos = periodos;
+                }
+
+                var sucesso = GravarArquivoService.SerializarPeriodos(funcionarios);
+
+                MessageBox.Show(sucesso, "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Informações inválidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
