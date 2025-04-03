@@ -1,5 +1,6 @@
 using GeradorPeriodosAquisitivos.Models;
 using GeradorPeriodosAquisitivos.Services;
+using GeradorPeriodosAquisitivos.Style;
 
 namespace GeradorPeriodosAquisitivos;
 
@@ -12,10 +13,45 @@ public partial class Gerador : Form
 
     private void CarregaFormulario(object sender, EventArgs e)
     {
+        txtCaminhoArquivo.Text = "Selecione um arquivo xlsx ou xls modelo para geração dos períodos aquisitivos";
         txtCaminhoArquivo.Enabled = false;
+        menuPrincipal.RenderMode = ToolStripRenderMode.Professional;
+        menuPrincipal.Renderer = new MenuPrincipalRenderer();
     }
 
     private void ImportarArquivo(object sender, EventArgs e)
+    {
+        try
+        {
+            List<Funcionario> funcionarios = LerArquivoService.ObterFuncionarios(txtCaminhoArquivo.Text);
+
+            GerarPeriodoService.AdicionarPeriodos(funcionarios);
+
+            GravarArquivoService.AdicionarRegistros(funcionarios);
+
+            List<PeriodoAquisitivo> todosPeriodosPreview = new();
+            foreach(var funcionario in funcionarios)
+            {
+                if(funcionario.PeriodosAquisitivos.Count > 0)
+                {
+                    foreach(var periodo in funcionario.PeriodosAquisitivos)
+                    {
+                        todosPeriodosPreview.Add(periodo);
+                    }
+                }
+            }
+
+            dgvPrevisualizacao.DataSource = todosPeriodosPreview;
+
+            MessageBox.Show("", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Informações inválidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void SelecionarPlanilha(object sender, EventArgs e)
     {
         try
         {
@@ -26,27 +62,19 @@ public partial class Gerador : Form
                 Multiselect = false,
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
-
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var caminhoArquivo = openFileDialog.FileName;
-                txtCaminhoArquivo.Text = caminhoArquivo;
-                List<Funcionario> funcionarios = LerArquivoService.DesserializarLinhas(caminhoArquivo);
-
-                foreach (var funcionario in funcionarios)
-                {
-                    var periodos = GerarPeriodoService.CalcularPeriodo(funcionario);
-                    funcionario.PeriodosAquisitivos = periodos;
-                }
-
-                var sucesso = GravarArquivoService.SerializarPeriodos(funcionarios);
-
-                MessageBox.Show(sucesso, "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtCaminhoArquivo.Text = openFileDialog.FileName;
             }
         }
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message, "Informações inválidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+    }
+
+    private void SairAplicacao(object sender, EventArgs e)
+    {
+        this.Close();
     }
 }

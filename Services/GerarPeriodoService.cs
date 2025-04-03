@@ -37,5 +37,14 @@ namespace GeradorPeriodosAquisitivos.Services
             } while (geraPeriodo);
             return periodos;
         }
+
+        public static void AdicionarPeriodos(List<Funcionario> funcionarios)
+        {
+            foreach (var funcionario in funcionarios)
+            {
+                var periodos = GerarPeriodoService.CalcularPeriodo(funcionario);
+                funcionario.PeriodosAquisitivos = periodos;
+            }
+        }
     }
 }

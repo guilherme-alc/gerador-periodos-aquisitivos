@@ -5,7 +5,7 @@ namespace GeradorPeriodosAquisitivos.Services
 {
     public class LerArquivoService
     {
-        public static List<Funcionario> DesserializarLinhas(string caminhoArquivo)
+        public static List<Funcionario> ObterFuncionarios(string caminhoArquivo)
         {
             ExcelPackage.License.SetNonCommercialPersonal("teste");
 

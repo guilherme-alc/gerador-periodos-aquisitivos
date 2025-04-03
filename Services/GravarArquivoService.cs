@@ -5,7 +5,7 @@ namespace GeradorPeriodosAquisitivos.Services
 {
     public class GravarArquivoService
     {
-        public static string SerializarPeriodos(List<Funcionario> funcionarios)
+        public static void AdicionarRegistros(List<Funcionario> funcionarios)
         {
             try
             {
@@ -80,8 +80,6 @@ namespace GeradorPeriodosAquisitivos.Services
 
                     string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PlanilhaFerias.xlsx");
                     File.WriteAllBytes(caminhoArquivo, package.GetAsByteArray());
-
-                    return $"{Path.GetFullPath(caminhoArquivo)}";
                 }    
             } 
             catch (Exception ex)
