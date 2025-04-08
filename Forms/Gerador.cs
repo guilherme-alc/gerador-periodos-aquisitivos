@@ -89,7 +89,7 @@ public partial class Gerador : Form
                 {
                     if (resource == null)
                     {
-                        MessageBox.Show("Erro ao localizar o modelo para download.");
+                        MessageBox.Show("Erro ao localizar o modelo para download.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -99,7 +99,7 @@ public partial class Gerador : Form
                     }
                 }
 
-                MessageBox.Show($"Planilha modelo salva com sucesso em:\n{sfd.FileName}!");
+                MessageBox.Show($"Planilha modelo salva com sucesso em:\n{sfd.FileName}", "Planilha Salva!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
