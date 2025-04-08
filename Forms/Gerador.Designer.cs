@@ -48,6 +48,7 @@ partial class Gerador
         grupoLimpar = new GroupBox();
         errorProvider = new ErrorProvider(components);
         helpProvider = new HelpProvider();
+        toolTip1 = new ToolTip(components);
         menuPrincipal.SuspendLayout();
         grupoSelecao.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dgvPrevisualizacao).BeginInit();
@@ -263,4 +264,5 @@ partial class Gerador
     private GroupBox grupoLimpar;
     private ErrorProvider errorProvider;
     private HelpProvider helpProvider;
+    private ToolTip toolTip1;
 }

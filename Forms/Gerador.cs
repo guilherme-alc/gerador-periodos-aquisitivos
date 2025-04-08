@@ -16,13 +16,17 @@ public partial class Gerador : Form
 
     private void CarregaFormulario(object sender, EventArgs e)
     {
+        toolTip.InitialDelay = 1;
+
         toolTip.SetToolTip(txtNomeArquivo, "Informe o nome para o arquivo que será gerado.");
+        toolTip.SetToolTip(btnLimpar, "Limpar todos os campos e pré-visualização.");
+        toolTip.SetToolTip(btnImportar, "Clique aqui para gerar a planilha com os períodos aquisitivos.");
         txtNomeArquivo.Focus();
 
         helpProvider.SetShowHelp(txtNomeArquivo, true);
         helpProvider.SetHelpString(txtNomeArquivo, "Informe o nome para o arquivo que será gerado.");
        
-        txtCaminhoArquivo.Text = "Selecione um arquivo xlsx ou xls modelo para geração dos períodos aquisitivos";
+        txtCaminhoArquivo.Text = "Abra o menu Arquivo e selecione o arquivo xlsx ou xls modelo para geração dos períodos aquisitivos";
         txtCaminhoArquivo.Enabled = false;
 
         menuPrincipal.RenderMode = ToolStripRenderMode.Professional;
