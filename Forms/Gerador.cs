@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Windows.Forms;
 using GeradorPeriodosAquisitivos.Models;
 using GeradorPeriodosAquisitivos.Services;
 using GeradorPeriodosAquisitivos.Style;
@@ -7,6 +8,7 @@ namespace GeradorPeriodosAquisitivos;
 
 public partial class Gerador : Form
 {
+    private ToolTip toolTip = new ToolTip();
     public Gerador()
     {
         InitializeComponent();
@@ -14,8 +16,15 @@ public partial class Gerador : Form
 
     private void CarregaFormulario(object sender, EventArgs e)
     {
+        toolTip.SetToolTip(txtNomeArquivo, "Informe o nome para o arquivo que será gerado.");
+        txtNomeArquivo.Focus();
+
+        helpProvider.SetShowHelp(txtNomeArquivo, true);
+        helpProvider.SetHelpString(txtNomeArquivo, "Informe o nome para o arquivo que será gerado.");
+       
         txtCaminhoArquivo.Text = "Selecione um arquivo xlsx ou xls modelo para geração dos períodos aquisitivos";
         txtCaminhoArquivo.Enabled = false;
+
         menuPrincipal.RenderMode = ToolStripRenderMode.Professional;
         menuPrincipal.Renderer = new MenuPrincipalRenderer();
     }
@@ -26,9 +35,15 @@ public partial class Gerador : Form
         {
             List<Funcionario> funcionarios = LerArquivoService.ObterFuncionarios(txtCaminhoArquivo.Text);
 
+            if (string.IsNullOrEmpty(txtNomeArquivo.Text) || string.IsNullOrWhiteSpace(txtNomeArquivo.Text))
+            {
+                errorProvider.SetError(txtNomeArquivo, "O nome do arquivo de saída é obrigatório.");
+                return;
+            }
+                
             GerarPeriodoService.AdicionarPeriodos(funcionarios);
 
-            GravarArquivoService.AdicionarRegistros(funcionarios);
+            GravarArquivoService.AdicionarRegistros(funcionarios, txtNomeArquivo.Text);
 
             List<PeriodoAquisitivo> todosPeriodosPreview = new();
             foreach (var funcionario in funcionarios)
@@ -107,5 +122,13 @@ public partial class Gerador : Form
     private void SairAplicacao(object sender, EventArgs e)
     {
         this.Close();
+    }
+
+    private void LimparCampos(object sender, EventArgs e)
+    {
+        txtCaminhoArquivo.Text = string.Empty;
+        txtNomeArquivo.Text = string.Empty;
+        dgvPrevisualizacao.DataSource = null;
+        dgvPrevisualizacao.Rows.Clear();
     }
 }

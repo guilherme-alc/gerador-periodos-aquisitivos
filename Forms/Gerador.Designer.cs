@@ -29,6 +29,7 @@ partial class Gerador
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gerador));
         btnImportar = new Button();
         openFileDialog = new OpenFileDialog();
@@ -41,10 +42,19 @@ partial class Gerador
         grupoSelecao = new GroupBox();
         dgvPrevisualizacao = new DataGridView();
         grupoPrevisualizacao = new GroupBox();
+        grupoEmpresa = new GroupBox();
+        txtNomeArquivo = new TextBox();
+        btnLimpar = new Button();
+        grupoLimpar = new GroupBox();
+        errorProvider = new ErrorProvider(components);
+        helpProvider = new HelpProvider();
         menuPrincipal.SuspendLayout();
         grupoSelecao.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dgvPrevisualizacao).BeginInit();
         grupoPrevisualizacao.SuspendLayout();
+        grupoEmpresa.SuspendLayout();
+        grupoLimpar.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
         SuspendLayout();
         // 
         // btnImportar
@@ -53,7 +63,7 @@ partial class Gerador
         btnImportar.BackColor = Color.Firebrick;
         btnImportar.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
         btnImportar.ForeColor = Color.White;
-        btnImportar.Location = new Point(588, 17);
+        btnImportar.Location = new Point(588, 16);
         btnImportar.Margin = new Padding(3, 2, 3, 2);
         btnImportar.Name = "btnImportar";
         btnImportar.Size = new Size(82, 30);
@@ -72,7 +82,7 @@ partial class Gerador
         txtCaminhoArquivo.Location = new Point(6, 21);
         txtCaminhoArquivo.Margin = new Padding(3, 2, 3, 2);
         txtCaminhoArquivo.Name = "txtCaminhoArquivo";
-        txtCaminhoArquivo.Size = new Size(576, 23);
+        txtCaminhoArquivo.Size = new Size(563, 23);
         txtCaminhoArquivo.TabIndex = 1;
         // 
         // menuPrincipal
@@ -126,7 +136,7 @@ partial class Gerador
         grupoSelecao.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         grupoSelecao.Controls.Add(btnImportar);
         grupoSelecao.Controls.Add(txtCaminhoArquivo);
-        grupoSelecao.Location = new Point(12, 27);
+        grupoSelecao.Location = new Point(12, 86);
         grupoSelecao.Name = "grupoSelecao";
         grupoSelecao.Size = new Size(676, 51);
         grupoSelecao.TabIndex = 4;
@@ -141,25 +151,74 @@ partial class Gerador
         dgvPrevisualizacao.Dock = DockStyle.Fill;
         dgvPrevisualizacao.Location = new Point(3, 19);
         dgvPrevisualizacao.Name = "dgvPrevisualizacao";
-        dgvPrevisualizacao.Size = new Size(670, 220);
+        dgvPrevisualizacao.Size = new Size(670, 281);
         dgvPrevisualizacao.TabIndex = 0;
         // 
         // grupoPrevisualizacao
         // 
         grupoPrevisualizacao.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         grupoPrevisualizacao.Controls.Add(dgvPrevisualizacao);
-        grupoPrevisualizacao.Location = new Point(12, 84);
+        grupoPrevisualizacao.Location = new Point(12, 143);
         grupoPrevisualizacao.Name = "grupoPrevisualizacao";
-        grupoPrevisualizacao.Size = new Size(676, 242);
+        grupoPrevisualizacao.Size = new Size(676, 303);
         grupoPrevisualizacao.TabIndex = 6;
         grupoPrevisualizacao.TabStop = false;
         grupoPrevisualizacao.Text = "Pré-visualização dos Períodos Gerados";
+        // 
+        // grupoEmpresa
+        // 
+        grupoEmpresa.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        grupoEmpresa.Controls.Add(txtNomeArquivo);
+        grupoEmpresa.Location = new Point(12, 30);
+        grupoEmpresa.Name = "grupoEmpresa";
+        grupoEmpresa.Size = new Size(569, 50);
+        grupoEmpresa.TabIndex = 7;
+        grupoEmpresa.TabStop = false;
+        grupoEmpresa.Text = "Nome do Arquivo";
+        // 
+        // txtNomeArquivo
+        // 
+        txtNomeArquivo.Location = new Point(6, 20);
+        txtNomeArquivo.Name = "txtNomeArquivo";
+        txtNomeArquivo.Size = new Size(303, 23);
+        txtNomeArquivo.TabIndex = 0;
+        // 
+        // btnLimpar
+        // 
+        btnLimpar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        btnLimpar.BackColor = Color.Gray;
+        btnLimpar.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        btnLimpar.ForeColor = Color.White;
+        btnLimpar.Location = new Point(7, 13);
+        btnLimpar.Margin = new Padding(3, 2, 3, 2);
+        btnLimpar.Name = "btnLimpar";
+        btnLimpar.Size = new Size(82, 30);
+        btnLimpar.TabIndex = 8;
+        btnLimpar.Text = "Limpar";
+        btnLimpar.UseVisualStyleBackColor = false;
+        btnLimpar.Click += LimparCampos;
+        // 
+        // grupoLimpar
+        // 
+        grupoLimpar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        grupoLimpar.Controls.Add(btnLimpar);
+        grupoLimpar.Location = new Point(593, 30);
+        grupoLimpar.Name = "grupoLimpar";
+        grupoLimpar.Size = new Size(95, 50);
+        grupoLimpar.TabIndex = 1;
+        grupoLimpar.TabStop = false;
+        // 
+        // errorProvider
+        // 
+        errorProvider.ContainerControl = this;
         // 
         // Gerador
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(700, 338);
+        ClientSize = new Size(700, 458);
+        Controls.Add(grupoLimpar);
+        Controls.Add(grupoEmpresa);
         Controls.Add(grupoPrevisualizacao);
         Controls.Add(grupoSelecao);
         Controls.Add(menuPrincipal);
@@ -177,6 +236,10 @@ partial class Gerador
         grupoSelecao.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)dgvPrevisualizacao).EndInit();
         grupoPrevisualizacao.ResumeLayout(false);
+        grupoEmpresa.ResumeLayout(false);
+        grupoEmpresa.PerformLayout();
+        grupoLimpar.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -194,4 +257,10 @@ partial class Gerador
     private DataGridView dgvPrevisualizacao;
     private GroupBox grupoPrevisualizacao;
     private ToolStripMenuItem selecionarPlanilhaMenuItem;
+    private GroupBox grupoEmpresa;
+    private TextBox txtNomeArquivo;
+    private Button btnLimpar;
+    private GroupBox grupoLimpar;
+    private ErrorProvider errorProvider;
+    private HelpProvider helpProvider;
 }

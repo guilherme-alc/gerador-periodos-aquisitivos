@@ -5,7 +5,7 @@ namespace GeradorPeriodosAquisitivos.Services
 {
     public class GravarArquivoService
     {
-        public static void AdicionarRegistros(List<Funcionario> funcionarios)
+        public static void AdicionarRegistros(List<Funcionario> funcionarios, string nomeArquivo)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace GeradorPeriodosAquisitivos.Services
 
                     planilha.Cells.AutoFitColumns();
 
-                    string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PlanilhaFerias.xlsx");
+                    string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{nomeArquivo}.xlsx");
                     File.WriteAllBytes(caminhoArquivo, package.GetAsByteArray());
                 }    
             } 
