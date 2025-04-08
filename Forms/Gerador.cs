@@ -1,3 +1,4 @@
+using System.Reflection;
 using GeradorPeriodosAquisitivos.Models;
 using GeradorPeriodosAquisitivos.Services;
 using GeradorPeriodosAquisitivos.Style;
@@ -30,11 +31,11 @@ public partial class Gerador : Form
             GravarArquivoService.AdicionarRegistros(funcionarios);
 
             List<PeriodoAquisitivo> todosPeriodosPreview = new();
-            foreach(var funcionario in funcionarios)
+            foreach (var funcionario in funcionarios)
             {
-                if(funcionario.PeriodosAquisitivos.Count > 0)
+                if (funcionario.PeriodosAquisitivos.Count > 0)
                 {
-                    foreach(var periodo in funcionario.PeriodosAquisitivos)
+                    foreach (var periodo in funcionario.PeriodosAquisitivos)
                     {
                         todosPeriodosPreview.Add(periodo);
                     }
@@ -70,6 +71,36 @@ public partial class Gerador : Form
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message, "Informações inválidas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void BaixarPlanilhaModelo(object sender, EventArgs e)
+    {
+        using (SaveFileDialog sfd = new SaveFileDialog())
+        {
+            sfd.Filter = "Planilha Excel (*.xlsx)|*.xlsx";
+            sfd.FileName = "Modelo.xlsx";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                string resourceName = "GeradorPeriodosAquisitivos.Resources.PlanilhaFerias-Modelo.xlsx";
+
+                using (Stream resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                {
+                    if (resource == null)
+                    {
+                        MessageBox.Show("Erro ao localizar o modelo para download.");
+                        return;
+                    }
+
+                    using (FileStream file = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write))
+                    {
+                        resource.CopyTo(file);
+                    }
+                }
+
+                MessageBox.Show($"Planilha modelo salva com sucesso em:\n{sfd.FileName}!");
+            }
         }
     }
 

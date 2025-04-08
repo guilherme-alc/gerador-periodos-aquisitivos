@@ -109,7 +109,8 @@ partial class Gerador
         salvarPlanilhaModeloMenuItem.ForeColor = Color.White;
         salvarPlanilhaModeloMenuItem.Name = "salvarPlanilhaModeloMenuItem";
         salvarPlanilhaModeloMenuItem.Size = new Size(195, 22);
-        salvarPlanilhaModeloMenuItem.Text = "Salvar Planilha Modelo";
+        salvarPlanilhaModeloMenuItem.Text = "Baixar Planilha Modelo";
+        salvarPlanilhaModeloMenuItem.Click += BaixarPlanilhaModelo;
         // 
         // sairMenuItem
         // 

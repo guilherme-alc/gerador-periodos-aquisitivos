@@ -6,10 +6,27 @@
         <Nullable>enable</Nullable>
         <UseWindowsForms>true</UseWindowsForms>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Win32Resource></Win32Resource>
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Resources\PlanilhaFerias-Modelo.xlsx" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="EPPlus" Version="8.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\PlanilhaFerias-Modelo.xlsx">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Forms\Gerador.cs">
+        <Generator>Form</Generator>
+      </Compile>
     </ItemGroup>
 
 </Project>
