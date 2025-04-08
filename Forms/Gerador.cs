@@ -44,7 +44,7 @@ public partial class Gerador : Form
 
             dgvPrevisualizacao.DataSource = todosPeriodosPreview;
 
-            MessageBox.Show("", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Geração dos períodos realizada com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
         {

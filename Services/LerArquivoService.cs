@@ -19,11 +19,24 @@ namespace GeradorPeriodosAquisitivos.Services
                 int totalLinhas = planilha.Dimension.Rows;
                 for (int linha = 3; linha <= totalLinhas; linha++)
                 {
+                    var empresa = planilha.Cells[linha, 1].Text.Trim();
+                    if(string.IsNullOrEmpty(empresa) || string.IsNullOrWhiteSpace(empresa))
+                        throw new ArgumentException($"Código de empresa \"{planilha.Cells[linha, 3].Text}\" inválido.\nLinha {linha}.");
+
+                    var cpf = planilha.Cells[linha, 2].Text.Trim();
+                    if(string.IsNullOrEmpty(cpf) || string.IsNullOrWhiteSpace(cpf))
+                        throw new ArgumentException($"CPF \"{planilha.Cells[linha, 3].Text}\" inválido.\nLinha {linha}.");
+
+                    var converteData = DateTime.TryParse(planilha.Cells[linha, 3].Text.Trim(), out var dataAdmissão);
+                    if(!converteData)
+                    {
+                        throw new ArgumentException($"Data de admissão \"{planilha.Cells[linha, 3].Text}\" inválida.\nLinha {linha}.");
+                    }
                     var funcionario = new Funcionario
                     {
-                        CodEmpresa = planilha.Cells[linha, 1].Text,
-                        CpfFuncionario = planilha.Cells[linha, 2].Text,
-                        DataAdmissao = DateTime.Parse(planilha.Cells[linha, 3].Text)
+                        CodEmpresa = empresa,
+                        CpfFuncionario = cpf,
+                        DataAdmissao = dataAdmissão
                     };
 
                     funcionarios.Add(funcionario);
