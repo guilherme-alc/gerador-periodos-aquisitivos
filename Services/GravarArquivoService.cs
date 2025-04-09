@@ -78,8 +78,20 @@ namespace GeradorPeriodosAquisitivos.Services
 
                     planilha.Cells.AutoFitColumns();
 
-                    string caminhoArquivo = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{nomeArquivo}.xlsx");
-                    File.WriteAllBytes(caminhoArquivo, package.GetAsByteArray());
+                    using (SaveFileDialog sfd = new SaveFileDialog())
+                    {
+                        sfd.Filter = "Planilha Excel (*.xlsx)|*.xlsx";
+                        sfd.FileName = $"{nomeArquivo}.xlsx";
+
+                        if (sfd.ShowDialog() == DialogResult.OK)
+                        {
+                            File.WriteAllBytes(sfd.FileName, package.GetAsByteArray());
+                        }
+                        else
+                        {
+                            throw new Exception("Operação de salvamento cancelada pelo usuário.");
+                        }
+                    }
                 }    
             } 
             catch (Exception ex)
