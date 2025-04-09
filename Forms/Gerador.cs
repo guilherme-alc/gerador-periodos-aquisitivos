@@ -49,19 +49,26 @@ public partial class Gerador : Form
 
             GravarArquivoService.AdicionarRegistros(funcionarios, txtNomeArquivo.Text);
 
-            List<PeriodoAquisitivo> todosPeriodosPreview = new();
+            List<FuncionarioPeriodoDTO> listaExibicao = new List<FuncionarioPeriodoDTO>();
+
             foreach (var funcionario in funcionarios)
             {
                 if (funcionario.PeriodosAquisitivos.Count > 0)
                 {
                     foreach (var periodo in funcionario.PeriodosAquisitivos)
                     {
-                        todosPeriodosPreview.Add(periodo);
+                        listaExibicao.Add(new FuncionarioPeriodoDTO
+                        {
+                            CodEmpresa = funcionario.CodEmpresa,
+                            CpfFuncionario = funcionario.CpfFuncionario,                           
+                            DataInicioPeriodo = periodo.DataInicioPeriodo,
+                            DataFimPeriodo = periodo.DataFimPeriodo
+                        });
                     }
                 }
             }
 
-            dgvPrevisualizacao.DataSource = todosPeriodosPreview;
+            dgvPrevisualizacao.DataSource = listaExibicao;
 
             MessageBox.Show("Geração dos períodos realizada com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
