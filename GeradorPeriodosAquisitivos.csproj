@@ -7,10 +7,15 @@
         <UseWindowsForms>true</UseWindowsForms>
         <ImplicitUsings>enable</ImplicitUsings>
         <Win32Resource></Win32Resource>
+        <ApplicationIcon>Resources\calendar-icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
       <None Remove="Resources\PlanilhaFerias-Modelo.xlsx" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Resources\calendar-icon.ico" />
     </ItemGroup>
 
     <ItemGroup>
