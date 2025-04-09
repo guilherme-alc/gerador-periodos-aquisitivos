@@ -226,7 +226,7 @@ partial class Gerador
         Icon = (Icon)resources.GetObject("$this.Icon");
         MainMenuStrip = menuPrincipal;
         Margin = new Padding(3, 2, 3, 2);
-        MinimumSize = new Size(716, 377);
+        MinimumSize = new Size(716, 497);
         Name = "Gerador";
         Text = "Gerador de Períodos Aquisitivos";
         WindowState = FormWindowState.Maximized;
