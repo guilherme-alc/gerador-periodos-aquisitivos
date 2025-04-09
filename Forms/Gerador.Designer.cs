@@ -43,6 +43,7 @@ partial class Gerador
         dgvPrevisualizacao = new DataGridView();
         grupoPrevisualizacao = new GroupBox();
         grupoEmpresa = new GroupBox();
+        linkGithub = new LinkLabel();
         txtNomeArquivo = new TextBox();
         btnLimpar = new Button();
         grupoLimpar = new GroupBox();
@@ -169,6 +170,7 @@ partial class Gerador
         // grupoEmpresa
         // 
         grupoEmpresa.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        grupoEmpresa.Controls.Add(linkGithub);
         grupoEmpresa.Controls.Add(txtNomeArquivo);
         grupoEmpresa.Location = new Point(12, 30);
         grupoEmpresa.Name = "grupoEmpresa";
@@ -176,6 +178,18 @@ partial class Gerador
         grupoEmpresa.TabIndex = 7;
         grupoEmpresa.TabStop = false;
         grupoEmpresa.Text = "Nome do Arquivo";
+        // 
+        // linkGithub
+        // 
+        linkGithub.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        linkGithub.AutoSize = true;
+        linkGithub.Location = new Point(441, 23);
+        linkGithub.Name = "linkGithub";
+        linkGithub.Size = new Size(125, 15);
+        linkGithub.TabIndex = 1;
+        linkGithub.TabStop = true;
+        linkGithub.Text = "GitHub: guilherme-alc";
+        linkGithub.LinkClicked += irParaGithubAutor;
         // 
         // txtNomeArquivo
         // 
@@ -265,4 +279,5 @@ partial class Gerador
     private ErrorProvider errorProvider;
     private HelpProvider helpProvider;
     private ToolTip toolTip1;
+    private LinkLabel linkGithub;
 }

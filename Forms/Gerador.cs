@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Windows.Forms;
 using GeradorPeriodosAquisitivos.Models;
 using GeradorPeriodosAquisitivos.Services;
 using GeradorPeriodosAquisitivos.Style;
@@ -35,7 +36,7 @@ public partial class Gerador : Form
 
         helpProvider.SetShowHelp(txtNomeArquivo, true);
         helpProvider.SetHelpString(txtNomeArquivo, "Informe o nome para o arquivo que será gerado.");
-       
+
         txtCaminhoArquivo.Text = "Abra o menu Arquivo e selecione o arquivo xlsx ou xls modelo para geração dos períodos aquisitivos";
         txtCaminhoArquivo.Enabled = false;
 
@@ -54,7 +55,7 @@ public partial class Gerador : Form
                 errorProvider.SetError(txtNomeArquivo, "O nome do arquivo de saída é obrigatório.");
                 return;
             }
-                
+
             GerarPeriodoService.AdicionarPeriodos(funcionarios);
 
             GravarArquivoService.AdicionarRegistros(funcionarios, txtNomeArquivo.Text);
@@ -70,7 +71,7 @@ public partial class Gerador : Form
                         listaExibicao.Add(new FuncionarioPeriodoDTO
                         {
                             CodEmpresa = funcionario.CodEmpresa,
-                            CpfFuncionario = funcionario.CpfFuncionario,                           
+                            CpfFuncionario = funcionario.CpfFuncionario,
                             DataInicioPeriodo = periodo.DataInicioPeriodo,
                             DataFimPeriodo = periodo.DataFimPeriodo
                         });
@@ -151,5 +152,23 @@ public partial class Gerador : Form
         txtNomeArquivo.Text = string.Empty;
         dgvPrevisualizacao.DataSource = null;
         dgvPrevisualizacao.Rows.Clear();
+    }
+
+    private void irParaGithubAutor(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+        try
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "https://github.com/guilherme-alc",
+                UseShellExecute = true
+            });
+
+            linkGithub.LinkVisited = true;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Não foi possível abrir o link: " + ex.Message);
+        }
     }
 }
