@@ -49,14 +49,17 @@ namespace GeradorPeriodosAquisitivos.Services
                         {
                             foreach (var periodo in funcionario.PeriodosAquisitivos)
                             {
-                                planilha.Cells[linha, 1].Value = funcionario.CodEmpresa;
-                                planilha.Cells[linha, 2].Value = funcionario.CpfFuncionario;
-                                
-                                planilha.Cells[linha, 3].Value = periodo.DataInicioPeriodo;
+                                planilha.Cells[linha, 1].Style.Numberformat.Format = "@";
+                                planilha.Cells[linha, 1].Value = funcionario.CodEmpresa.ToString();
+
+                                planilha.Cells[linha, 2].Style.Numberformat.Format = "@";
+                                planilha.Cells[linha, 2].Value = funcionario.CpfFuncionario.ToString();
+
                                 planilha.Cells[linha, 3].Style.Numberformat.Format = "dd/MM/yyyy";
-                             
-                                planilha.Cells[linha, 4].Value = periodo.DataFimPeriodo;
+                                planilha.Cells[linha, 3].Value = periodo.DataInicioPeriodo;
+
                                 planilha.Cells[linha, 4].Style.Numberformat.Format = "dd/MM/yyyy";
+                                planilha.Cells[linha, 4].Value = periodo.DataFimPeriodo;
 
                                 planilha.Cells[linha, 5].Style.Numberformat.Format = "dd/MM/yyyy";
                                 planilha.Cells[linha, 6].Style.Numberformat.Format = "dd/MM/yyyy";
@@ -69,8 +72,11 @@ namespace GeradorPeriodosAquisitivos.Services
                         }
                         else
                         {
+                            planilha.Cells[linha, 1].Style.Numberformat.Format = "@";
                             planilha.Cells[linha, 1].Value = funcionario.CodEmpresa;
-                            planilha.Cells[linha, 2].Value = funcionario.CpfFuncionario;
+
+                            planilha.Cells[linha, 2].Style.Numberformat.Format = "@";
+                            planilha.Cells[linha, 2].Value = funcionario.CpfFuncionario.ToString();
                             planilha.Cells[linha, 10].Value = "Preparada";
                             linha++;
                         }   

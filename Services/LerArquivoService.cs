@@ -23,7 +23,7 @@ namespace GeradorPeriodosAquisitivos.Services
                     if(string.IsNullOrEmpty(empresa) || string.IsNullOrWhiteSpace(empresa))
                         throw new ArgumentException($"Código de empresa \"{planilha.Cells[linha, 3].Text}\" inválido.\nLinha {linha}.");
 
-                    var cpf = planilha.Cells[linha, 2].Text.Trim();
+                    var cpf = planilha.Cells[linha, 2].Value.ToString().Trim();
                     if(string.IsNullOrEmpty(cpf) || string.IsNullOrWhiteSpace(cpf))
                         throw new ArgumentException($"CPF \"{planilha.Cells[linha, 3].Text}\" inválido.\nLinha {linha}.");
 
