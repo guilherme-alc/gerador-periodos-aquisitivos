@@ -17,7 +17,7 @@ namespace GeradorPeriodosAquisitivos.Services
                 var planilha = package.Workbook.Worksheets[0];
 
                 int totalLinhas = planilha.Dimension.Rows;
-                for (int linha = 3; linha <= totalLinhas; linha++)
+                for (int linha = 2; linha <= totalLinhas; linha++)
                 {
                     var empresa = planilha.Cells[linha, 1].Text.Trim();
                     if(string.IsNullOrEmpty(empresa) || string.IsNullOrWhiteSpace(empresa))
