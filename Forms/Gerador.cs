@@ -1,5 +1,4 @@
 using System.Reflection;
-using System.Windows.Forms;
 using GeradorPeriodosAquisitivos.Models;
 using GeradorPeriodosAquisitivos.Services;
 using GeradorPeriodosAquisitivos.Style;
@@ -32,12 +31,13 @@ public partial class Gerador : Form
         toolTip.SetToolTip(txtNomeArquivo, "Informe o nome para o arquivo que será gerado.");
         toolTip.SetToolTip(btnLimpar, "Limpar todos os campos e pré-visualização.");
         toolTip.SetToolTip(btnImportar, "Clique aqui para gerar a planilha com os períodos aquisitivos.");
-        txtNomeArquivo.Focus();
 
         helpProvider.SetShowHelp(txtNomeArquivo, true);
         helpProvider.SetHelpString(txtNomeArquivo, "Informe o nome para o arquivo que será gerado.");
 
-        txtCaminhoArquivo.Text = "Abra o menu Arquivo e selecione o arquivo xlsx ou xls modelo para geração dos períodos aquisitivos";
+        txtNomeArquivo.Focus();
+
+        txtCaminhoArquivo.Text = "Abra o menu Arquivo e selecione a planilha xlsx ou xls modelo para geração dos períodos aquisitivos";
         txtCaminhoArquivo.Enabled = false;
 
         menuPrincipal.RenderMode = ToolStripRenderMode.Professional;
@@ -80,6 +80,16 @@ public partial class Gerador : Form
             }
 
             dgvPrevisualizacao.DataSource = listaExibicao;
+
+            dgvPrevisualizacao.Columns["CodEmpresa"].HeaderText = "Empresa";
+            dgvPrevisualizacao.Columns["CpfFuncionario"].HeaderText = "CPF";
+            dgvPrevisualizacao.Columns["DataInicioPeriodo"].HeaderText = "Início do Período";
+            dgvPrevisualizacao.Columns["DataFimPeriodo"].HeaderText = "Final do Período";
+
+            dgvPrevisualizacao.DefaultCellStyle.SelectionBackColor = Color.Firebrick;
+            dgvPrevisualizacao.DefaultCellStyle.SelectionForeColor = Color.White;
+
+            dgvPrevisualizacao.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             MessageBox.Show("Geração dos períodos realizada com sucesso!", "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
